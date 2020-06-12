@@ -127,8 +127,8 @@ class _StatsState extends State<Stats> {
     final totalWidth = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Container(
-        height: totalHeight * 0.77,
-        transform: Matrix4.translationValues(0.0, totalHeight * 0.18, 0.0),
+        height: totalHeight * 0.797,
+        transform: Matrix4.translationValues(0.0, totalHeight * 0.22, 0.0),
         child: Column(
           children: <Widget>[
             Container(

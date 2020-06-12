@@ -28,3 +28,8 @@ const cTitleTextstyle = TextStyle(
   color: darkTitleTextColor,
   fontWeight: FontWeight.bold,
 );
+
+const cPrevStyle = TextStyle(
+  color: darkTitleTextColor,
+  fontWeight: FontWeight.bold,
+);
