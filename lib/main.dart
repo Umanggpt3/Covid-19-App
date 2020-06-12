@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import './constVars.dart';
 import './Stats/Stats.dart';
@@ -32,19 +34,45 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String _confirmed;
+
+  @override
+  void initState() {
+    super.initState();
+    _confirmed = null;
+    _fetchStats();
+  }
+
+  _fetchStats() async {
+    final response = await http.get('https://api.covid19api.com/summary');
+
+    if (response.statusCode == 200) {
+      var r = json.decode(response.body);
+      var res = r["Global"];
+      String confirmed = res["TotalConfirmed"].toString().replaceAllMapped(
+          new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
+
+      setState(() {
+        _confirmed = confirmed;
+      });
+    } else {
+      throw Exception('Failed to load album');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final totalHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     final totalWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Column(
+      body: Stack(
         children: <Widget>[
           ClipPath(
             clipper: MyClipper(),
             child: Container(
               padding: EdgeInsets.only(left: 20, top: 40, right: 20),
-              height: totalHeight * 0.4,
+              height: totalHeight * 0.35,
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -66,14 +94,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     alignment: Alignment.topLeft,
                     child: SvgPicture.asset('assets/icons/menu.svg'),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   Expanded(
                     child: Stack(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(left: totalWidth * 0.1),
                           child: SvgPicture.asset(
                             'assets/icons/Drcorona.svg',
                             width: totalWidth * 0.6,
@@ -82,12 +106,30 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Positioned(
-                          top: totalHeight * 0.05,
-                          right: totalWidth * 0.15,
-                          child: Text(
-                            'Stay Home\nStay Safe',
-                            style: cHeadingTextStyle.copyWith(
-                              color: Colors.white,
+                          child: Container(
+                            alignment: Alignment.topRight,
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'Worldwide Cases',
+                                  textAlign: TextAlign.right,
+                                  style: cHeadingTextStyle.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                if (_confirmed != null)
+                                  Text(
+                                    _confirmed == null
+                                        ? "No Update"
+                                        : _confirmed,
+                                    style: cHeadingTextStyle.copyWith(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                              ],
                             ),
                           ),
                         ),
@@ -99,7 +141,118 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          Stats(),
+          Column(
+            children: <Widget>[
+              Stats(),
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    child: Text(
+                      "Requirements",
+                      style: cTitleTextstyle,
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    margin: EdgeInsets.only(right: 5),
+                    child: Text(
+                      "More",
+                      style: TextStyle(color: bodyTextColor),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 10),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15,
+                    ),
+                  )
+                ],
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Container(
+                  height: totalHeight * 0.15,
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 20,
+                                  color: bodyTextColor.withOpacity(0.1))
+                            ]),
+                        child: SvgPicture.asset('assets/icons/mask.svg'),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 20,
+                                  color: bodyTextColor.withOpacity(0.1))
+                            ]),
+                        child: SvgPicture.asset('assets/icons/glove.svg'),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 20,
+                                  color: bodyTextColor.withOpacity(0.1))
+                            ]),
+                        child: SvgPicture.asset('assets/icons/social-distance.svg'),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 20,
+                                  color: bodyTextColor.withOpacity(0.1))
+                            ]),
+                        child: SvgPicture.asset('assets/icons/wash-hands.svg'),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: Offset(0, 10),
+                                  blurRadius: 20,
+                                  color: bodyTextColor.withOpacity(0.1))
+                            ]),
+                        child: SvgPicture.asset('assets/icons/sanitizer.svg'),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
