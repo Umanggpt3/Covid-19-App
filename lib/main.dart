@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import './News/NewsHome.dart';
 import './constVars.dart';
 import './Stats/StatsHome.dart';
 
@@ -34,6 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     StatsHome(),
+    Container(),
+    NewsHome(),
+    Container(),
   ];
 
   void onTabTapped(int index) {
@@ -51,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: Container(
         height: totalHeight * 0.071,
         child: BottomNavigationBar(
-          onTap: onTabTapped,
+          onTap: (index) => onTabTapped(index),
           currentIndex: _currentIndex,
           type: BottomNavigationBarType.fixed,
           items: [
