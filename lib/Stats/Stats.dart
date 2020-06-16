@@ -96,12 +96,19 @@ class _StatsState extends State<Stats> {
               (Match m) => '${m[1]},');
           DateTime formattedDate =
               new DateFormat('d/M/yyyy H:m:s').parse(item["lastupdatedtime"]);
-          String deltaActive = (int.parse(item["deltaconfirmed"]) -
+          int deltaActive = (int.parse(item["deltaconfirmed"]) -
                   int.parse(item["deltadeaths"]) -
-                  int.parse(item["deltarecovered"]))
-              .toString()
-              .replaceAllMapped(new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                  (Match m) => '${m[1]},');
+                  int.parse(item["deltarecovered"]));
+          String deltaActiveStr;
+          if(deltaActive < 0) {
+            deltaActiveStr = (deltaActive * -1).toString().replaceAllMapped(
+              new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+              (Match m) => '${m[1]},');
+          } else {
+            deltaActiveStr = deltaActive.toString().replaceAllMapped(
+              new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+              (Match m) => '${m[1]},');
+          }
           setState(() {
             _futureState = Cases(
                 state,
@@ -113,8 +120,9 @@ class _StatsState extends State<Stats> {
                 deltaConfirmed,
                 deltaDeaths,
                 deltaRecovered,
-                deltaActive);
-            _loading =  true;
+                deltaActive,
+                deltaActiveStr);
+            _loading = true;
           });
         }
       });
@@ -130,8 +138,8 @@ class _StatsState extends State<Stats> {
     // final totalWidth = MediaQuery.of(context).size.width;
     return _loading
         ? Container(
-            height: totalHeight * 0.56,
-            transform: new Matrix4.translationValues(0, -20, 0),
+            height: totalHeight,
+            transform: new Matrix4.translationValues(0, totalHeight * 0.37, 0),
             child: Column(
               children: <Widget>[
                 Container(
@@ -216,52 +224,60 @@ class _StatsState extends State<Stats> {
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                  margin: EdgeInsets.symmetric(horizontal: 2),
-                  height: totalHeight * 0.42,
-                  width: double.infinity,
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          EachType(
-                              deltaCount: _futureState.deltaConfirmed,
-                              count: _futureState.confirmed,
-                              color: infectedColor,
-                              text: "Confirmed"),
-                          EachType(
-                              deltaCount: _futureState.deltaActive,
-                              count: _futureState.active,
-                              color: activeColor,
-                              text: "Active"),
-                        ],
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 15),
-                        child: Row(
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    margin: EdgeInsets.symmetric(horizontal: 2),
+                    width: double.infinity,
+                    child: Column(
+                      children: <Widget>[
+                        Row(
                           children: <Widget>[
                             EachType(
-                                deltaCount: _futureState.deltaDeaths,
-                                count: _futureState.deaths,
-                                color: deathColor,
-                                text: "Deaths"),
+                                deltaCount: _futureState.deltaConfirmed,
+                                count: _futureState.confirmed,
+                                color: infectedColor,
+                                text: "Confirmed",
+                                isNeg: false,),
                             EachType(
-                                deltaCount: _futureState.deltaRecovered,
-                                count: _futureState.recovered,
-                                color: recoverColor,
-                                text: "Recovered"),
+                                deltaCount: _futureState.deltaActiveStr,
+                                count: _futureState.active,
+                                color: activeColor,
+                                text: "Active",
+                                isNeg: _futureState.deltaActive < 0 ? true : false,),
                           ],
                         ),
-                      )
-                    ],
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Row(
+                            children: <Widget>[
+                              EachType(
+                                  deltaCount: _futureState.deltaDeaths,
+                                  count: _futureState.deaths,
+                                  color: deathColor,
+                                  text: "Deaths",
+                                  isNeg: false,),
+                              EachType(
+                                  deltaCount: _futureState.deltaRecovered,
+                                  count: _futureState.recovered,
+                                  color: recoverColor,
+                                  text: "Recovered",
+                                  isNeg: false,),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           )
-        : Center(
-            child: new CircularProgressIndicator(),
-          );
+        : Container(
+          height: totalHeight,
+          child: Center(
+              child: new CircularProgressIndicator(),
+            ),
+        );
   }
 }

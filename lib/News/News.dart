@@ -7,24 +7,21 @@ class News {
   final String desc;
   final String urlToImage;
   final String publishedAt;
+  final String content;
+  final String url;
 
-  News(this.source, this.author, this.title, this.desc, this.urlToImage, this.publishedAt);
+  News(this.source, this.author, this.title, this.desc, this.urlToImage, this.publishedAt, this.content, this.url);
 
   String get agoTime {
     DateTime old = DateTime.parse(publishedAt);
     DateTime now = DateTime.now();
     Duration dur = now.difference(old);
-    print(old);
-    print(now);
-    print(dur);
     if(dur.inDays == 0) {
       if(dur.inHours > 0) {
         String val = '${dur.inHours} hr ${(dur.inMinutes-(dur.inHours*60))} min ago';
-        print(val);
         return val;
       } else {
         String val = '${(dur.inMinutes-(dur.inHours*60))} min ago';
-        print(val);
         return val;
       }
     }

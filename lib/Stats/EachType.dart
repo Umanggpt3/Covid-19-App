@@ -7,8 +7,9 @@ class EachType extends StatelessWidget {
   final String deltaCount;
   final Color color;
   final String text;
+  final bool isNeg;
 
-  EachType({this.deltaCount, this.count, this.color, this.text});
+  EachType({this.deltaCount, this.count, this.color, this.text, this.isNeg});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class EachType extends StatelessWidget {
                   ),
                   Spacer(),
                   Icon(
-                    Icons.trending_up,
+                    isNeg ? Icons.trending_down : Icons.trending_up,
                     color: color,
                   ),
                   SizedBox(

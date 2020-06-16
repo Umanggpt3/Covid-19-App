@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './News/NewsHome.dart';
 import './constVars.dart';
 import './Stats/StatsHome.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.black87,
+    statusBarIconBrightness: Brightness.light,
+  ));
   runApp(MyApp());
 }
 
@@ -53,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: Container(
-        height: totalHeight * 0.071,
+        height: totalHeight * 0.10,
         child: BottomNavigationBar(
           onTap: (index) => onTabTapped(index),
           currentIndex: _currentIndex,
@@ -61,19 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
           items: [
             new BottomNavigationBarItem(
               icon: Icon(Icons.pie_chart_outlined),
-              title: Container(),
+              title: Text("Stats"),
             ),
             new BottomNavigationBarItem(
               icon: Icon(Icons.place),
-              title: Container(),
+              title: Text("Nearby"),
             ),
             new BottomNavigationBarItem(
               icon: Icon(Icons.subject),
-              title: Container(),
+              title: Text("News"),
             ),
             new BottomNavigationBarItem(
               icon: Icon(Icons.info_outline),
-              title: Container(),
+              title: Text("Info"),
             ),
           ],
         ),

@@ -8,7 +8,8 @@ class Cases {
   final String deltaConfirmed;
   final String deltaDeaths;
   final String deltaRecovered;
-  final String deltaActive;
+  final int deltaActive;
+  final String deltaActiveStr;
 
-  Cases(this.state, this.active, this.confirmed, this.deaths, this.recovered, this.dateTime, this.deltaConfirmed, this.deltaDeaths, this.deltaRecovered, this.deltaActive);
+  Cases(this.state, this.active, this.confirmed, this.deaths, this.recovered, this.dateTime, this.deltaConfirmed, this.deltaDeaths, this.deltaRecovered, this.deltaActive, this.deltaActiveStr);
 }
