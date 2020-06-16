@@ -72,10 +72,6 @@ class _StatsHomeState extends State<StatsHome> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: SvgPicture.asset('assets/icons/menu.svg'),
-                        ),
                         Expanded(
                           child: Stack(
                             children: <Widget>[
@@ -97,16 +93,17 @@ class _StatsHomeState extends State<StatsHome> {
                                         textAlign: TextAlign.right,
                                         style: cHeadingTextStyle.copyWith(
                                           color: Colors.white,
-                                          fontSize: 15,
+                                          fontSize: 18,
                                         ),
                                       ),
                                       Text(
                                         _confirmed == null
                                             ? "No Update"
                                             : _confirmed,
+                                        textAlign: TextAlign.right,
                                         style: cHeadingTextStyle.copyWith(
                                           color: Colors.white,
-                                          fontSize: 30,
+                                          fontSize: 40,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       )
@@ -122,174 +119,6 @@ class _StatsHomeState extends State<StatsHome> {
                     ),
                   ),
                   Stats(),
-                  // Column(
-                  //   children: <Widget>[
-                  //     Row(
-                  //       children: <Widget>[
-                  //         Container(
-                  //           margin: EdgeInsets.only(left: 20),
-                  //           child: Text(
-                  //             "Prevention",
-                  //             style: cTitleTextstyle,
-                  //           ),
-                  //         ),
-                  //         Spacer(),
-                  //         Container(
-                  //           margin: EdgeInsets.only(right: 5),
-                  //           child: Text(
-                  //             "More",
-                  //             style: TextStyle(color: bodyTextColor),
-                  //           ),
-                  //         ),
-                  //         Container(
-                  //           margin: EdgeInsets.only(right: 10),
-                  //           child: Icon(
-                  //             Icons.arrow_forward_ios,
-                  //             size: 15,
-                  //           ),
-                  //         )
-                  //       ],
-                  //     ),
-                  //     SingleChildScrollView(
-                  //       scrollDirection: Axis.horizontal,
-                  //       child: Container(
-                  //         height: totalHeight * 0.13,
-                  //         padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  //         child: Row(
-                  //           children: <Widget>[
-                  //             Container(
-                  //               margin: EdgeInsets.symmetric(horizontal: 10),
-                  //               padding: const EdgeInsets.all(10.0),
-                  //               decoration: BoxDecoration(
-                  //                   borderRadius: BorderRadius.circular(10),
-                  //                   color: Colors.white,
-                  //                   boxShadow: [
-                  //                     BoxShadow(
-                  //                         offset: Offset(0, 10),
-                  //                         blurRadius: 20,
-                  //                         color: bodyTextColor.withOpacity(0.1))
-                  //                   ]),
-                  //               child: Row(
-                  //                 children: <Widget>[
-                  //                   SvgPicture.asset(
-                  //                     'assets/icons/mask.svg',
-                  //                     width: 45,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 10,
-                  //                   ),
-                  //                   Text(
-                  //                     "Wear\nMask",
-                  //                   )
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //             Container(
-                  //               margin: EdgeInsets.symmetric(horizontal: 10),
-                  //               padding: const EdgeInsets.all(10.0),
-                  //               decoration: BoxDecoration(
-                  //                   borderRadius: BorderRadius.circular(10),
-                  //                   color: Colors.white,
-                  //                   boxShadow: [
-                  //                     BoxShadow(
-                  //                         offset: Offset(0, 10),
-                  //                         blurRadius: 20,
-                  //                         color: bodyTextColor.withOpacity(0.1))
-                  //                   ]),
-                  //               child: Row(
-                  //                 children: <Widget>[
-                  //                   SvgPicture.asset(
-                  //                     'assets/icons/glove.svg',
-                  //                     width: 45,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 10,
-                  //                   ),
-                  //                   Text("Wear\nGloves"),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //             Container(
-                  //               margin: EdgeInsets.symmetric(horizontal: 10),
-                  //               padding: const EdgeInsets.all(10.0),
-                  //               decoration: BoxDecoration(
-                  //                   borderRadius: BorderRadius.circular(10),
-                  //                   color: Colors.white,
-                  //                   boxShadow: [
-                  //                     BoxShadow(
-                  //                         offset: Offset(0, 10),
-                  //                         blurRadius: 20,
-                  //                         color: bodyTextColor.withOpacity(0.1))
-                  //                   ]),
-                  //               child: Row(
-                  //                 children: <Widget>[
-                  //                   SvgPicture.asset(
-                  //                     'assets/icons/social-distance.svg',
-                  //                     width: 45,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 10,
-                  //                   ),
-                  //                   Text("Social\nDistancing"),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //             Container(
-                  //               margin: EdgeInsets.symmetric(horizontal: 10),
-                  //               padding: const EdgeInsets.all(10.0),
-                  //               decoration: BoxDecoration(
-                  //                   borderRadius: BorderRadius.circular(10),
-                  //                   color: Colors.white,
-                  //                   boxShadow: [
-                  //                     BoxShadow(
-                  //                         offset: Offset(0, 10),
-                  //                         blurRadius: 20,
-                  //                         color: bodyTextColor.withOpacity(0.1))
-                  //                   ]),
-                  //               child: Row(
-                  //                 children: <Widget>[
-                  //                   SvgPicture.asset(
-                  //                     'assets/icons/wash-hands.svg',
-                  //                     width: 45,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 10,
-                  //                   ),
-                  //                   Text("Wash\nHands"),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //             Container(
-                  //               margin: EdgeInsets.symmetric(horizontal: 10),
-                  //               padding: const EdgeInsets.all(10.0),
-                  //               decoration: BoxDecoration(
-                  //                   borderRadius: BorderRadius.circular(10),
-                  //                   color: Colors.white,
-                  //                   boxShadow: [
-                  //                     BoxShadow(
-                  //                         offset: Offset(0, 10),
-                  //                         blurRadius: 20,
-                  //                         color: bodyTextColor.withOpacity(0.1))
-                  //                   ]),
-                  //               child: Row(
-                  //                 children: <Widget>[
-                  //                   SvgPicture.asset(
-                  //                     'assets/icons/sanitizer.svg',
-                  //                     width: 45,
-                  //                   ),
-                  //                   SizedBox(
-                  //                     width: 10,
-                  //                   ),
-                  //                   Text("Use\nSanitizer"),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 ],
               ),
             ),

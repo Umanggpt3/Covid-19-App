@@ -27,4 +27,18 @@ class News {
     }
     return new DateFormat.yMMMd().format(old);
   }
+
+  String get imageUrl {
+    if(urlToImage == null) {
+      return "http://atsengg.com/images/not-found.jpg";
+    } 
+    return urlToImage;
+  }
+
+  String get getDesc {
+    if(desc == null) {
+      return "No Description Available.";
+    }
+    return desc;
+  }
 }

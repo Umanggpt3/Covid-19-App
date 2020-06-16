@@ -54,18 +54,26 @@ flutter:
     - assets/icons/menu.svg
     - assets/images/virus.png
     - assets/icons/maps-and-flags.svg
-    - assets/icons/dropdown.svg
     - assets/icons/running.svg
     - assets/icons/glove.svg
     - assets/icons/mask.svg
     - assets/icons/sanitizer.svg
     - assets/icons/social-distance.svg
     - assets/icons/wash-hands.svg
-    - assets/icons/info.svg
-    - assets/icons/news.svg
-    - assets/icons/road.svg
-    - assets/icons/stats.svg
-    - assets/icons/news-admin.svg
+    - assets/images/breathing-issue.png
+    - assets/images/cold.png
+    - assets/images/cough.png
+    - assets/images/fever.png
+    - assets/icons/coronadr.svg
+    - assets/icons/dropdown.svg
+    - assets/icons/call.svg
+    - assets/icons/facebook.svg
+    - assets/icons/gmail.svg
+    - assets/icons/instagram.svg
+    - assets/icons/www.svg
+    - assets/icons/twitter.svg
+    - assets/icons/whatsapp.svg
+    - assets/icons/telegram.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

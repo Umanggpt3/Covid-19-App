@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import './News/NewsHome.dart';
 import './constVars.dart';
 import './Stats/StatsHome.dart';
+import './Info/Info.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -42,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     StatsHome(),
     Container(),
     NewsHome(),
-    Container(),
+    Info(),
   ];
 
   void onTabTapped(int index) {

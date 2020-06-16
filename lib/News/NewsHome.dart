@@ -58,7 +58,6 @@ class _NewsHomeState extends State<NewsHome> {
 
   _launchBrowser() async {
     String url = _selectedNews.url;
-    print(url);
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -82,7 +81,7 @@ class _NewsHomeState extends State<NewsHome> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(_selectedNews.urlToImage),
+                      image: NetworkImage(_selectedNews.imageUrl),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(Colors.black38, BlendMode.darken),
                     ),
@@ -128,7 +127,7 @@ class _NewsHomeState extends State<NewsHome> {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
-                          _selectedNews.desc,
+                          _selectedNews.getDesc,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 13,
@@ -206,7 +205,7 @@ class _NewsHomeState extends State<NewsHome> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          _articles[index].urlToImage),
+                                          _articles[index].imageUrl),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
